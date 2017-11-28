@@ -11,5 +11,6 @@ import java.util.List;
 public interface CourseDao extends JpaRepository<Course,Integer> {
     List<Course> findByTeacherId(Integer teacherId);
     List<Course> findByTeacherIdIn(List<Integer> teacherIds);
+    List<Course> findByCourseIdIn(List<Integer> courseIds);
     Course findByCourseId(Integer courseId);
 }

@@ -13,4 +13,5 @@ public interface GradeDao extends JpaRepository<Grade,Integer>{
     List<Grade> findByCourseId(Integer courseId);
     Grade findByStudentIdAndCourseId(Integer studentId,Integer coueseId);
     List<Grade> findByTeacherId(Integer teacherId);
+    List<Grade> findByTeacherIdIn(List<Integer> teacherIdList);
 }

@@ -15,4 +15,5 @@ public interface TeacherService {
     TeacherInfo save(TeacherInfo teacherInfo);
     TeacherInfo findOne(Integer TeacherId);
     List<TeacherInfo> findByPosition(Integer position);
+    List<TeacherInfo> findByTeacherIdIn(List<Integer> integers);
 }

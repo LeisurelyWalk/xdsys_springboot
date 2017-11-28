@@ -27,6 +27,8 @@ public class StudentInfo {
 
     private String address;
 
+    private String password;
+
     private Integer creditAcquired=0;
 
     private Integer creditRequired;

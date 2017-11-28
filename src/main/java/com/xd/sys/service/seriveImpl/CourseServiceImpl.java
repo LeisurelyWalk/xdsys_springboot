@@ -5,6 +5,8 @@ import com.xd.sys.Dao.TeacherDao;
 import com.xd.sys.objectData.Course;
 import com.xd.sys.objectData.TeacherInfo;
 import com.xd.sys.service.CourseService;
+import com.xd.sys.vo.CourseSelectVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,5 +43,20 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Course save(Course course) {
         return courseDao.save(course);
+    }
+
+    public CourseSelectVO Course2CourseSelectVO(Course course){
+        CourseSelectVO courseSelectVO=new CourseSelectVO();
+        BeanUtils.copyProperties(course,courseSelectVO);
+
+        TeacherInfo  teacherInfo = teacherDao.findOne(course.getTeacherId());
+        courseSelectVO.setTeacherName(teacherInfo.getTeacherName());
+        return courseSelectVO;
+    }
+
+    @Override
+    public List<CourseSelectVO> Course2CourseSelectVO(List<Course> courseList){
+        return courseList.stream().map(e -> Course2CourseSelectVO(e)).collect(Collectors.toList());
+
     }
 }

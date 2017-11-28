@@ -2,6 +2,7 @@ package com.xd.sys.service;
 
 import com.xd.sys.objectData.Course;
 import com.xd.sys.objectData.Grade;
+import com.xd.sys.vo.CourseSelectVO;
 
 import java.util.List;
 
@@ -18,6 +19,8 @@ public interface CourseService {
     //
     //添加课程
     Course save(Course course);
+
+    List<CourseSelectVO> Course2CourseSelectVO(List<Course> courseList);
 
 
 }

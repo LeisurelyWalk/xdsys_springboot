@@ -20,6 +20,11 @@ public class TeacherServiceImpl implements TeacherService {
     private TeacherDao teacherDao;
 
     @Override
+    public List<TeacherInfo> findByTeacherIdIn(List<Integer> integers) {
+        return teacherDao.findByTeacherIdIn(integers);
+    }
+
+    @Override
     public Page<TeacherInfo> findAll(Pageable pageable) {
         return teacherDao.findAll(pageable);
     }
