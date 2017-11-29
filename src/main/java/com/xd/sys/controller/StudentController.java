@@ -3,16 +3,11 @@ package com.xd.sys.controller;
 import com.xd.sys.Dao.CourseDao;
 import com.xd.sys.Dao.StudentInfoDao;
 import com.xd.sys.objectData.Course;
-import com.xd.sys.objectData.Grade;
 import com.xd.sys.objectData.StudentInfo;
-import com.xd.sys.objectData.TeacherInfo;
 import com.xd.sys.service.CourseService;
 import com.xd.sys.service.GradeService;
 import com.xd.sys.service.StudentInfoService;
 import com.xd.sys.service.TeacherService;
-import com.xd.sys.utils.Course2SelectVO;
-import com.xd.sys.utils.Grade2CourseVOUtil;
-import com.xd.sys.utils.Password2Md5;
 import com.xd.sys.vo.CourseSelectVO;
 import com.xd.sys.vo.CourseVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Created by zhoukang on 2017/11/27.
@@ -78,12 +69,13 @@ public class StudentController {
     @GetMapping("/search")
     public ModelAndView search(@RequestParam(value = "studentId") Integer studentId,
                                @RequestParam(value = "searchText") String searchText,
+                               @RequestParam(value = "actionType") String actionType,
                                Map<String, Object> map){
         //查找学生信息，学号，名字，地址，已修学分，需要学分，入学时间。
         StudentInfo student=studentService.findOne(studentId);
 
         //选课情况，课程 老师 成绩，课程学分，上课地点。
-        List<CourseVO>courseVOList=gradeService.getCoursesByTeacherName(searchText,studentId);
+        List<CourseVO>courseVOList=gradeService.getCoursesByTeacherName(searchText,studentId,actionType);
 
         map.put("student",student);
         map.put("courseVOList",courseVOList);
@@ -96,19 +88,19 @@ public class StudentController {
     }
 
     @GetMapping("/course")
-    public ModelAndView course(@RequestParam(value = "studentId",required = false) Integer studentId,
+    public ModelAndView course(@RequestParam(value = "studentId") String studentId,
                               Map<String, Object> map){
+
+        StudentInfo student=studentService.findOne(Integer.valueOf(studentId));
         //查找课程，课程名称，老师名称，上课地点，学分，课程简介。
         List<Course> courseList=courseService.findAll();
 
         List<CourseSelectVO> courseSelectVOS= courseService.Course2CourseSelectVO(courseList);
 
+
+        map.put("student",student);
         map.put("courseSelectVOS",courseSelectVOS);
 
-
-
-
-
-        return new ModelAndView("/student/course",map);
+        return new ModelAndView("/course/course",map);
     }
 }

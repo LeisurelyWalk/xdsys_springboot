@@ -31,5 +31,5 @@ public interface GradeService {
 
     List<CourseVO> getAllCoursesByStudentId(Integer studentId);
 
-    List<CourseVO> getCoursesByTeacherName(String teacherName,Integer studentId);
+    List<CourseVO> getCoursesByTeacherName(String teacherName,Integer studentId,String actionType);
 }

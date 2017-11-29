@@ -68,10 +68,13 @@ public class GradeServiceImpl implements GradeService {
     }
 
     @Override
-    public List<CourseVO> getCoursesByTeacherName(String teacherName,Integer studentId) {
+    public List<CourseVO> getCoursesByTeacherName(String teacherName,Integer studentId,String actionType) {
         List<TeacherInfo>teacherInfoList=teacherDao.findByTeacherNameContaining(teacherName);
         List<Integer>integers=teacherInfoList.stream().map(e-> new Integer(e.getTeacherId())).collect(Collectors.toList());
         List<Grade>gradeList=gradeDao.findByTeacherIdIn(integers);
+        if(actionType.equals("course")){
+            return Grade2ListCourseVOList(gradeList);
+        }
         List<Grade>resultList=gradeList.stream().filter(e-> e.getStudentId().equals(studentId)).collect(Collectors.toList());
         return Grade2ListCourseVOList(resultList);
     }

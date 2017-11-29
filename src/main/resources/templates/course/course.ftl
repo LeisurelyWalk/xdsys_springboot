@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://cdn.bootcss.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
-    <title>学生首页</title>
+    <title>选课</title>
 </head>
 <body>
 <div class="container">
@@ -16,11 +16,11 @@
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active">
+                        <li>
                             <a href="#">信息</a>
                         </li>
-                        <li>
-                            <a href="/xdsys/student/course?studentId=${student.studentId ? c}">选课</a>
+                        <li class="active">
+                            <a href="#">选课</a>
                         </li>
                     </ul>
                     <form class="navbar-form navbar-left" role="form" method="get" action="/xdsys/student/search">
@@ -28,7 +28,7 @@
                             <input type="text" name="searchText" class="form-control" />
                         </div>
                         <input hidden type="number" name="studentId" value="${student.studentId ? c}">
-                        <input hidden type="text" name="actionType" value="index">
+                        <input hidden type="text" name="actionType" value="course">
                         <button type="submit" class="btn btn-default">Submit</button>
                     </form>
 
@@ -47,65 +47,27 @@
                 <thead>
                 <tr>
                     <th>
-                        姓名
-                    </th>
-                    <th>
-                        学号
-                    </th>
-                    <th>
-                        已修学分
-                    </th>
-                    <th>
-                        需修学分
-                    </th>
-                    <th>
-                        入学时间
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>
-                    ${student.studentName}
-                    </td>
-                    <td>
-                    ${student.studentId ? c}
-                    </td>
-                    <td>
-                    ${student.creditAcquired}
-                    </td>
-                    <td>
-                    ${student.creditRequired}
-                    </td>
-                    <td>
-                    ${student.entranceTime ? string("yyyy-MM-dd")}
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <br>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>
-                        课程
+                        课程名称
                     </th>
                     <th>
                         老师
                     </th>
                     <th>
-                        成绩
-                    </th>
-                    <th>
-                        课程学分
+                        学分
                     </th>
                     <th>
                         上课地点
                     </th>
+                    <th>
+                        课程简介
+                    </th>
+                    <th>
+                        选择
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
-                <#list courseVOList as course>
+                <#list courseSelectVOS as course>
                 <tr class="success">
                     <td>
                     ${course.courseName}
@@ -114,13 +76,16 @@
                     ${course.teacherName}
                     </td>
                     <td>
-                    ${course.score}
-                    </td>
-                    <td>
                     ${course.courseCredit}
                     </td>
                     <td>
                     ${course.courseAddress}
+                    </td>
+                    <td>
+                    ${course.courseText}
+                    </td>
+                    <td>
+                    选择
                     </td>
                 </tr>
                 </#list>
